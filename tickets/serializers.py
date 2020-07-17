@@ -43,7 +43,6 @@ class TicketSerializer(serializers.ModelSerializer):
         else:   # If not, creating a new one
             client_serializer = self.fields['client']
             client = client_serializer.create(client_data)
-            client_serializer.create(client_data)
             client_id = client.id
             validated_data['client'] = Client.objects.filter(id=client_id).first()
 
@@ -79,7 +78,6 @@ class TicketSerializer(serializers.ModelSerializer):
         else:   # If not, creating a new one
             client_serializer = self.fields['client']
             client = client_serializer.create(client_data)
-            client_serializer.create(client_data)
             client_id = client.id
             validated_data['client'] = Client.objects.filter(id=client_id).first()
 
