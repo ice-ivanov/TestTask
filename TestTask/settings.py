@@ -21,6 +21,8 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 
 DEBUG = os.getenv('DEBUG')
 
+LOCAL = os.getenv('LOCAL')
+
 ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
@@ -33,7 +35,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # Third party apps
     'rest_framework',
+    'drf_yasg',
     # Custom apps
+    'tickets.apps.TicketsConfig',
 ]
 
 MIDDLEWARE = [
@@ -57,6 +61,15 @@ REST_FRAMEWORK = {
 
 ROOT_URLCONF = 'TestTask.urls'
 
+CACHES = {
+    "default": {
+         "BACKEND": "django_redis.cache.RedisCache",
+         "LOCATION": os.environ.get('REDIS_URL'),
+    }
+}
+SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+SESSION_CACHE_ALIAS = "default"
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -73,9 +86,11 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'DPSRest.wsgi.application'
+WSGI_APPLICATION = 'TestTask.wsgi.application'
 
 DATABASES = {'default': dj_database_url.config(conn_max_age=600, ssl_require=True)}
+if LOCAL:
+    DATABASES['default'] = dj_database_url.config(default=os.environ.get('DJANGO_DB'))
 
 AUTH_PASSWORD_VALIDATORS = [
     {
