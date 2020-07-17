@@ -25,9 +25,9 @@ class Client(models.Model):
 
 
 class Ticket(models.Model):
+    text = models.CharField(max_length=100)
     responsible = models.ForeignKey(Responsible, on_delete=models.CASCADE)
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
-    text = models.CharField(max_length=100)
     date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
