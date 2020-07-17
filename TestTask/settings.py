@@ -21,6 +21,8 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 
 DEBUG = os.getenv('DEBUG')
 
+LOCAL = os.getenv('LOCAL')
+
 ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
@@ -34,6 +36,7 @@ INSTALLED_APPS = [
     # Third party apps
     'rest_framework',
     # Custom apps
+    'tickets.apps.TicketsConfig',
 ]
 
 MIDDLEWARE = [
@@ -76,6 +79,8 @@ TEMPLATES = [
 WSGI_APPLICATION = 'TestTask.wsgi.application'
 
 DATABASES = {'default': dj_database_url.config(conn_max_age=600, ssl_require=True)}
+if LOCAL:
+    DATABASES['default'] = dj_database_url.config(default=os.environ.get('DJANGO_DB'))
 
 AUTH_PASSWORD_VALIDATORS = [
     {
