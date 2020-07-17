@@ -1,10 +1,10 @@
 from django.contrib import admin
-from .models import Position, Responsible, Client, Ticket
+from .models import Responsible, Client, Ticket
 
 
-@admin.register(Position)
-class PositionAdmin(admin.ModelAdmin):
-    list_display = ('name',)
+# @admin.register(Position)
+# class PositionAdmin(admin.ModelAdmin):
+#     list_display = ('name',)
 
 
 @admin.register(Responsible)
@@ -19,4 +19,4 @@ class ClientAdmin(admin.ModelAdmin):
 
 @admin.register(Ticket)
 class TicketAdmin(admin.ModelAdmin):
-    list_display = ('id', 'responsible', 'client', 'text')
+    list_display = ('date', 'id', 'responsible', 'client', 'text')
