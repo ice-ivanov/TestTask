@@ -58,9 +58,9 @@ class TicketSerializer(serializers.ModelSerializer):
         if Responsible.objects.filter(fio=responsible_data['fio'], position=responsible_data['position']):
             validated_data['responsible'] = Responsible.objects.filter(fio=responsible_data['fio'],
                                                                        position=responsible_data['position']).first()
-            ticket.resp.fio = responsible_data['fio']
-            ticket.resp.position = responsible_data['position']
-            ticket.resp.save()
+            ticket.responsible.fio = responsible_data['fio']
+            ticket.responsible.position = responsible_data['position']
+            ticket.responsible.save()
         else:   # If not, creating a new one
             responsible_serializer = self.fields['responsible']
             responsible = responsible_serializer.create(responsible_data)
@@ -72,9 +72,9 @@ class TicketSerializer(serializers.ModelSerializer):
         if Client.objects.filter(fio=client_data['fio'], phone=client_data['phone']):
             validated_data['client'] = Client.objects.filter(fio=client_data['fio'],
                                                              phone=client_data['phone']).first()
-            ticket.cli.fio = client_data['fio']
-            ticket.cli.phone = client_data['phone']
-            ticket.cli.save()
+            ticket.client.fio = client_data['fio']
+            ticket.client.phone = client_data['phone']
+            ticket.client.save()
         else:   # If not, creating a new one
             client_serializer = self.fields['client']
             client = client_serializer.create(client_data)
